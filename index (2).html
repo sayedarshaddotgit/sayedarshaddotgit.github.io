@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sayed Arshad Khan — Economist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --ink: #0d1117;
+      --paper: #f7f4ef;
+      --cream: #ede9e2;
+      --teal: #0a6e6e;
+      --teal-light: #0d8a8a;
+      --amber: #c9700a;
+      --amber-light: #e8821a;
+      --slate: #2d3748;
+      --muted: #6b7280;
+      --border: #d1cfc8;
+      --white: #ffffff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(247,244,239,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--slate);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--teal); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); transition: 0.3s; }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 64px;
+      padding-left: 8%;
+      padding-right: 8%;
+      padding-bottom: 4rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.2s forwards;
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 6vw, 6.5rem);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      white-space: nowrap;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.25s forwards;
+    }
+    .hero-name em {
+      color: var(--teal);
+      font-style: italic;
+    }
+    .hero-photo-wrap {
+      flex-shrink: 0;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.2s forwards;
+    }
+    .hero-photo {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 3px solid var(--teal);
+      object-fit: cover;
+      display: block;
+      background: var(--cream);
+    }
+    .hero-photo-placeholder {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 3px solid var(--teal);
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.3rem;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .hero-photo-placeholder:hover { border-color: var(--amber); background: #e8e4dc; }
+    .hero-photo-placeholder svg { opacity: 0.4; }
+    .hero-photo-placeholder span {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    #photo-input { display: none; }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.35s forwards;
+    }
+    .hero-bottom-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 4rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.45s forwards;
+    }
+    .hero-subtitle {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--slate);
+      max-width: 500px;
+      flex: 1;
+    }
+    .hero-btns {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.55s forwards;
+      margin-top: 2rem;
+    }
+    .btn-primary {
+      background: var(--teal);
+      color: white;
+      padding: 0.85rem 2rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      border-radius: 3px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--teal-light); transform: translateY(-2px); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      padding: 0.85rem 2rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      border-radius: 3px;
+      border: 1.5px solid var(--ink);
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
+    .hero-meta {
+      margin-top: 3rem;
+      display: flex; gap: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.65s forwards;
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+    }
+    .hero-meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .hero-meta-item span:first-child {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--teal);
+    }
+    .hero-meta-item span:last-child {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      padding: 8rem 8%;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .about-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--teal);
+      margin-bottom: 1.5rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 2rem;
+    }
+    .about-text {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--slate);
+      margin-bottom: 1.5rem;
+    }
+    .about-interests {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+    .interest-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--teal);
+      font-weight: 500;
+    }
+    .interest-pill::before {
+      content: '→';
+      font-family: 'DM Mono', monospace;
+    }
+    .about-right { position: relative; }
+    .about-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .about-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--ink);
+    }
+    .about-card-sub {
+      font-size: 0.82rem;
+      color: var(--teal);
+      font-weight: 500;
+      font-family: 'DM Mono', monospace;
+      margin-bottom: 0.75rem;
+    }
+    .about-card-detail {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── RESEARCH QUESTIONS ── */
+    #questions {
+      background: #eef2ee;
+      padding: 7rem 8%;
+    }
+    .questions-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 4rem;
+      margin-bottom: 4rem;
+    }
+    .questions-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      max-width: 420px;
+    }
+    .questions-sub {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--slate);
+      max-width: 380px;
+    }
+    .question-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .question-item {
+      background: #f7f9f7;
+      border: 1.5px solid rgba(90,120,90,0.18);
+      border-radius: 6px;
+      padding: 2.5rem;
+      transition: background 0.3s, border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+    .question-item:hover {
+      background: #ffffff;
+      border-color: var(--teal);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(90,120,90,0.12);
+    }
+    .q-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 3rem;
+      font-weight: 500;
+      color: rgba(90,120,90,0.25);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+    .q-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      line-height: 1.55;
+      color: var(--ink);
+      font-style: italic;
+    }
+
+    /* ── RESEARCH ── */
+    #research {
+      padding: 8rem 8%;
+    }
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 4rem;
+    }
+    .research-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .research-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .research-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+    .research-card-top {
+      background: var(--teal);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .research-card-top::before {
+      content: '';
+      position: absolute;
+      top: -30px; right: -30px;
+      width: 100px; height: 100px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+    }
+    .research-type {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 0.75rem;
+    }
+    .research-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: white;
+      line-height: 1.35;
+    }
+    .research-card-body {
+      padding: 2rem;
+    }
+    .research-desc {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--slate);
+      margin-bottom: 1.5rem;
+    }
+    .research-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.3rem 0.7rem;
+      background: rgba(10,110,110,0.07);
+      color: var(--teal);
+      border-radius: 2px;
+      border: 1px solid rgba(10,110,110,0.15);
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience {
+      background: var(--cream);
+      padding: 8rem 8%;
+    }
+    .timeline {
+      position: relative;
+      padding-left: 3rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--teal), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      padding-bottom: 3.5rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -3.4rem;
+      top: 0.35rem;
+      width: 10px; height: 10px;
+      background: var(--teal);
+      border-radius: 50%;
+      border: 2px solid var(--cream);
+    }
+    .timeline-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--teal);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+    .timeline-role {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+    .timeline-org {
+      font-size: 0.88rem;
+      color: var(--amber);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .timeline-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .timeline-points li {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--slate);
+      padding-left: 1.2rem;
+      position: relative;
+    }
+    .timeline-points li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* ── SKILLS ── */
+    #skills {
+      padding: 8rem 8%;
+      background: var(--paper);
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 4rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .skill-block {
+      background: var(--white);
+      padding: 2.5rem 2rem;
+      border-right: 1.5px solid var(--border);
+      position: relative;
+      transition: background 0.3s, transform 0.2s;
+      overflow: hidden;
+    }
+    .skill-block:last-child { border-right: none; }
+    .skill-block::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--teal);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .skill-block:hover::before { transform: scaleX(1); }
+    .skill-block:hover { background: #f0fafa; }
+    .skill-block-icon {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, rgba(10,110,110,0.1), rgba(10,110,110,0.05));
+      border: 1px solid rgba(10,110,110,0.15);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.8rem;
+      font-size: 1.3rem;
+    }
+    .skill-block-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+    }
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .skill-list li {
+      font-size: 0.83rem;
+      color: var(--slate);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      line-height: 1.4;
+    }
+    .skill-list li::before {
+      content: '';
+      width: 5px; height: 5px;
+      background: var(--teal);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 0.38rem;
+    }
+    .skills-bottom-band {
+      margin-top: 2rem;
+      background: var(--teal);
+      border-radius: 6px;
+      padding: 1.8rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .skills-band-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+    }
+    .skills-band-tools {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .skills-band-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      padding: 0.35rem 0.85rem;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      border-radius: 3px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── WHAT I OFFER ── */
+    #offer {
+      background: #fdf6ee;
+      padding: 8rem 8%;
+      border-top: 1px solid #edd9c0;
+    }
+    .offer-label { color: var(--amber); }
+    .offer-title { color: var(--ink); }
+    .offer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+    .offer-card {
+      background: var(--white);
+      border: 1.5px solid #e8d5be;
+      border-radius: 6px;
+      padding: 2.5rem;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .offer-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--amber), var(--teal));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s;
+    }
+    .offer-card:hover::after { transform: scaleX(1); }
+    .offer-card:hover {
+      border-color: var(--amber);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(201,112,10,0.1);
+    }
+    .offer-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: var(--amber);
+      margin-bottom: 1.5rem;
+    }
+    .offer-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+    .offer-card-desc {
+      font-size: 0.87rem;
+      line-height: 1.7;
+      color: var(--slate);
+    }
+
+    /* ── DATA & CODE ── */
+    #data {
+      padding: 8rem 8%;
+      background: var(--paper);
+    }
+    .data-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      margin-bottom: 4rem;
+    }
+    .data-text {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--slate);
+      margin-top: 1.5rem;
+    }
+    .data-highlight {
+      background: var(--cream);
+      border-left: 3px solid var(--teal);
+      padding: 1.5rem 2rem;
+      border-radius: 0 4px 4px 0;
+      margin-top: 2rem;
+    }
+    .data-highlight p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--teal);
+      line-height: 1.7;
+    }
+    .code-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .code-card {
+      background: var(--ink);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .code-card:hover { transform: translateY(-4px); }
+    .code-card-header {
+      background: rgba(10,110,110,0.2);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .code-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot-red { background: #ff5f57; }
+    .dot-yellow { background: #ffbd2e; }
+    .dot-green { background: #28ca41; }
+    .code-filename {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.5);
+      margin-left: auto;
+    }
+    .code-body {
+      padding: 1.5rem;
+    }
+    .code-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+    .code-desc {
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 1.2rem;
+    }
+    .code-tag-row {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .code-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      padding: 0.2rem 0.6rem;
+      background: rgba(10,110,110,0.2);
+      color: var(--teal-light);
+      border-radius: 2px;
+    }
+    .github-cta {
+      margin-top: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 2rem 2.5rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .github-cta-text { flex: 1; }
+    .github-cta-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+    .github-cta-sub {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .github-btn {
+      background: var(--ink);
+      color: white;
+      padding: 0.8rem 1.8rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 3px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .github-btn:hover { background: var(--teal); }
+
+    /* ── WRITING ── */
+    #writing {
+      background: var(--cream);
+      padding: 8rem 8%;
+    }
+    .writing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+    .writing-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2.5rem;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .writing-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--teal);
+    }
+    .writing-type {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--amber);
+      margin-bottom: 1rem;
+    }
+    .writing-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.35;
+      margin-bottom: 0.75rem;
+    }
+    .writing-desc {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      padding: 8rem 8%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .contact-text {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--slate);
+      margin-top: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--ink);
+      padding: 1.25rem 1.5rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-link:hover {
+      border-color: var(--teal);
+      transform: translateX(4px);
+    }
+    .contact-link-icon {
+      width: 36px; height: 36px;
+      background: rgba(10,110,110,0.08);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .contact-link-info { flex: 1; }
+    .contact-link-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+    .contact-link-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .form-input, .form-textarea {
+      padding: 0.9rem 1.1rem;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--ink);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--teal); }
+    .form-textarea { resize: vertical; min-height: 130px; }
+    .form-submit {
+      background: var(--teal);
+      color: white;
+      padding: 0.9rem 2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: fit-content;
+    }
+    .form-submit:hover { background: var(--teal-light); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      padding: 3rem 8%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+    }
+    .footer-text {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      #home { padding-left: 6%; padding-right: 6%; }
+      .hero-name { font-size: clamp(2.5rem, 7vw, 5rem); }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .offer-grid { grid-template-columns: repeat(2, 1fr); }
+      .question-list { grid-template-columns: 1fr; }
+      .research-grid { grid-template-columns: 1fr; }
+      .data-intro { grid-template-columns: 1fr; gap: 2rem; }
+      #about, #contact { grid-template-columns: 1fr; gap: 3rem; }
+      .questions-header { flex-direction: column; gap: 2rem; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero-top-row { flex-direction: row; align-items: center; }
+      .hero-name { font-size: clamp(2rem, 9vw, 3.5rem); white-space: normal; }
+      .hero-photo { width: 90px; height: 90px; }
+      .hero-photo-placeholder { width: 90px; height: 90px; }
+      .hero-bottom-row { flex-direction: column; gap: 1.5rem; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .offer-grid, .writing-grid, .code-grid { grid-template-columns: 1fr; }
+      .hero-meta { flex-wrap: wrap; gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">S. A. Khan</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#offer">Services</a></li>
+    <li><a href="#data">Data & Code</a></li>
+    <li><a href="#writing">Writing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-left">
+    <div class="hero-top-row">
+      <h1 class="hero-name">Sayed <em>Arshad</em> Khan</h1>
+      <div class="hero-photo-wrap">
+        <input type="file" id="photo-input" accept="image/*" onchange="loadPhoto(event)"/>
+        <div class="hero-photo-placeholder" id="photo-placeholder" onclick="document.getElementById('photo-input').click()" title="Click to upload your photo">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.5">
+            <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+          <span>Add Photo</span>
+        </div>
+        <img id="hero-img" class="hero-photo" style="display:none;" alt="Sayed Arshad Khan"/>
+      </div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-bottom-row">
+      <p class="hero-subtitle">Economist specialising in applied econometrics, macroeconomic forecasting, and policy-relevant research. I turn large socio-economic datasets into clear, actionable insights.</p>
+    </div>
+    <div class="hero-btns">
+      <a href="CV_Sayed_Arshad_Khan.pdf" download class="btn-primary">Download CV</a>
+      <a href="#research" class="btn-secondary">View Research</a>
+      <a href="#contact" class="btn-secondary">Contact</a>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span>IIT</span>
+        <span>Gandhinagar Graduate</span>
+      </div>
+      <div class="hero-meta-item">
+        <span>3+</span>
+        <span>Research Roles</span>
+      </div>
+      <div class="hero-meta-item">
+        <span>5+</span>
+        <span>Econometric Tools</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left">
+    <p class="about-label">// About</p>
+    <h2 class="section-title">Turning data into<br><em style="font-style:italic; color:var(--teal)">economic insight</em></h2>
+    <p class="about-text">I am an economist trained in applied econometrics, macroeconomic analysis, and policy evaluation. My work focuses on understanding how infrastructure investments, regulatory frameworks, and economic policies shape development outcomes.</p>
+    <p class="about-text">I completed my Master's in Society & Culture (Economics & Public Policy specialisation) from IIT Gandhinagar with a CGPA of 8.61/10. My research combines econometric methods with large socio-economic datasets to generate policy-relevant insights.</p>
+    <div class="about-interests">
+      <span class="interest-pill">Development Economics</span>
+      <span class="interest-pill">Infrastructure Economics</span>
+      <span class="interest-pill">Energy Policy</span>
+      <span class="interest-pill">Applied Econometrics</span>
+      <span class="interest-pill">Impact Evaluation</span>
+      <span class="interest-pill">Macro Modelling</span>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="about-card">
+      <div class="about-card-sub">2023 – 2025</div>
+      <div class="about-card-title">MA in Society & Culture</div>
+      <div class="about-card-detail">Economics & Public Policy · IIT Gandhinagar<br>CGPA: 8.61 / 10<br>Focus: Applied Econometrics · Impact Evaluation · Energy & Infrastructure Economics</div>
+    </div>
+    <div class="about-card">
+      <div class="about-card-sub">2018 – 2022</div>
+      <div class="about-card-title">B.Tech in Civil Engineering</div>
+      <div class="about-card-detail">Cochin University of Science and Technology (CUSAT)<br>CGPA: 8.22 / 10<br>Focus: Engineering Economics · Project Management · Advanced Mathematics</div>
+    </div>
+    <div class="about-card">
+      <div class="about-card-sub">Professional Training</div>
+      <div class="about-card-title">Macroeconometric Forecasting — IMF / edX</div>
+      <div class="about-card-detail">Advanced time-series econometrics: VAR/SVAR, cointegration, VECM, structural breaks, and forecast evaluation using real macroeconomic datasets.</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH QUESTIONS -->
+<section id="questions">
+  <div class="questions-header">
+    <h2 class="questions-title">Questions<br>I Work On</h2>
+    <p class="questions-sub">These are the intellectual problems that drive my research and shape how I approach economic data and policy questions.</p>
+  </div>
+  <div class="question-list">
+    <div class="question-item">
+      <div class="q-num">01</div>
+      <p class="q-text">How do large infrastructure investments affect regional employment and structural economic development?</p>
+    </div>
+    <div class="question-item">
+      <div class="q-num">02</div>
+      <p class="q-text">How do regulatory structures and institutional frameworks shape electricity markets and energy transition outcomes?</p>
+    </div>
+    <div class="question-item">
+      <div class="q-num">03</div>
+      <p class="q-text">How can econometric methods credibly evaluate the causal effectiveness of public policy interventions?</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="section-header">
+    <div>
+      <p class="about-label">// Research & Projects</p>
+      <h2 class="section-title">Selected Work</h2>
+    </div>
+  </div>
+  <div class="research-grid">
+    <div class="research-card">
+      <div class="research-card-top">
+        <div class="research-type">Master's Thesis · 2024–2025</div>
+        <div class="research-title">Economic Impacts of Large Water Infrastructure Investments</div>
+      </div>
+      <div class="research-card-body">
+        <p class="research-desc">Evaluates the regional economic effects of large-scale water infrastructure in the Narmada Basin using village-level panel data integrating Economic Census, Population Census, and geospatial sources. Estimates employment outcomes and analyses structural economic change before and after investment.</p>
+        <div class="research-tags">
+          <span class="tag">Panel Econometrics</span>
+          <span class="tag">Diff-in-Diff</span>
+          <span class="tag">Stata</span>
+          <span class="tag">QGIS</span>
+          <span class="tag">Narmada Basin</span>
+        </div>
+      </div>
+    </div>
+    <div class="research-card">
+      <div class="research-card-top" style="background: var(--amber);">
+        <div class="research-type">Policy Research · 2024</div>
+        <div class="research-title">Energy Policy and Electricity Market Analysis — CPPR</div>
+      </div>
+      <div class="research-card-body">
+        <p class="research-desc">Research focused on electricity sector regulation and market structures in Kerala. Analysed pricing frameworks, reviewed the Electricity Act (2003), and studied governance structures influencing renewable energy transition. Contributed to policy briefs for stakeholder audiences.</p>
+        <div class="research-tags">
+          <span class="tag">Electricity Markets</span>
+          <span class="tag">Regulation Economics</span>
+          <span class="tag">Energy Policy</span>
+          <span class="tag">Kerala</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="about-label">// Experience</p>
+  <h2 class="section-title">Professional Timeline</h2>
+  <div style="height:3rem"></div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-date">Mar 2024 – Apr 2025</div>
+      <div class="timeline-role">Economics & Public Policy Researcher</div>
+      <div class="timeline-org">Indian Institute of Technology Gandhinagar (Master's Thesis)</div>
+      <ul class="timeline-points">
+        <li>Built and estimated econometric panel models in Stata to evaluate regional economic outcomes around large-scale infrastructure investments.</li>
+        <li>Constructed village-level panel datasets integrating Economic Census, Population Census, and geospatial data using QGIS.</li>
+        <li>Conducted robustness checks and structured interpretation of employment and structural economic shifts over time.</li>
+        <li>Translated econometric outputs into clear analytical reports for academic and policy audiences.</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">May 2024 – Jul 2024</div>
+      <div class="timeline-role">Energy Policy Research Associate (Intern)</div>
+      <div class="timeline-org">Centre for Public Policy Research (CPPR), Kochi</div>
+      <ul class="timeline-points">
+        <li>Analysed electricity market structures, pricing frameworks, and renewable transition policies in Kerala.</li>
+        <li>Reviewed the Electricity Act (2003) and state-level regulations to assess institutional and market reform implications.</li>
+        <li>Conducted structured economic analysis of regulatory and governance frameworks affecting energy markets.</li>
+        <li>Contributed to policy briefs and presentations aimed at stakeholder and advisory audiences.</li>
+        <li>Conducted outreach sessions for undergraduate students introducing them to public policy and economic research.</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Aug 2023 – Apr 2024</div>
+      <div class="timeline-role">Sustainable Development Associate (Part-time)</div>
+      <div class="timeline-org">Kiran C. Patel Center for Sustainable Development, IITGN</div>
+      <ul class="timeline-points">
+        <li>Supported research across climate, water, and energy transition themes through quantitative data analysis and structured reporting.</li>
+        <li>Assisted in preparation of institutional reports and presentations requiring accuracy and clarity of economic interpretation.</li>
+        <li>Coordinated seminars and stakeholder engagements, strengthening communication and organisational capabilities.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="about-label">// Methods & Tools</p>
+  <h2 class="section-title">Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-block">
+      <div class="skill-block-icon">📈</div>
+      <div class="skill-block-title">Macro Modelling & Forecasting</div>
+      <ul class="skill-list">
+        <li>VAR / SVAR Models</li>
+        <li>VECM & Cointegration</li>
+        <li>Structural Break Analysis</li>
+        <li>Forecast Evaluation (Theil's U)</li>
+        <li>Scenario Simulation</li>
+      </ul>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-icon">🔬</div>
+      <div class="skill-block-title">Econometric Methods</div>
+      <ul class="skill-list">
+        <li>Difference-in-Differences (DiD)</li>
+        <li>Instrumental Variables (IV)</li>
+        <li>Regression Discontinuity (RDD)</li>
+        <li>Panel Data Econometrics</li>
+        <li>Robustness & Sensitivity Analysis</li>
+      </ul>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-icon">💻</div>
+      <div class="skill-block-title">Technical Tools</div>
+      <ul class="skill-list">
+        <li>EViews (macro modelling)</li>
+        <li>Stata (estimation & processing)</li>
+        <li>R & SPSS (statistical analysis)</li>
+        <li>Excel (advanced modelling)</li>
+        <li>QGIS (geospatial integration)</li>
+      </ul>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-icon">📋</div>
+      <div class="skill-block-title">Communication & Advisory</div>
+      <ul class="skill-list">
+        <li>Policy briefs & analytical reports</li>
+        <li>Stakeholder engagement</li>
+        <li>Seminar presentation</li>
+        <li>Academic writing</li>
+        <li>Client-facing analysis</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+<section id="offer">
+  <p class="about-label offer-label">// What I Offer</p>
+  <h2 class="section-title offer-title">Research &<br>Analytical Services</h2>
+  <div class="offer-grid">
+    <div class="offer-card">
+      <div class="offer-num">01 ——</div>
+      <div class="offer-card-title">Econometric Policy Analysis</div>
+      <div class="offer-card-desc">Causal evaluation of policy interventions using DiD, IV, RDD, and panel econometric frameworks. Rigorous robustness checks and clear interpretation of results.</div>
+    </div>
+    <div class="offer-card">
+      <div class="offer-num">02 ——</div>
+      <div class="offer-card-title">Macroeconomic Modelling</div>
+      <div class="offer-card-desc">Time-series modelling and forecasting using VAR/SVAR and VECM. Scenario analysis, structural break identification, and fan-chart forecast outputs in EViews and R.</div>
+    </div>
+    <div class="offer-card">
+      <div class="offer-num">03 ——</div>
+      <div class="offer-card-title">Dataset Construction & Analysis</div>
+      <div class="offer-card-desc">Building and cleaning large socio-economic panel datasets from diverse sources including Census data, administrative records, and geospatial files in Stata and QGIS.</div>
+    </div>
+    <div class="offer-card">
+      <div class="offer-num">04 ——</div>
+      <div class="offer-card-title">Economic Impact Evaluation</div>
+      <div class="offer-card-desc">Quantitative research for development and infrastructure projects, including baseline analysis, counterfactual construction, and structured economic reporting.</div>
+    </div>
+    <div class="offer-card">
+      <div class="offer-num">05 ——</div>
+      <div class="offer-card-title">Energy & Regulatory Research</div>
+      <div class="offer-card-desc">Analysis of electricity market structures, regulatory frameworks, and energy transition policies. Institutional review and governance analysis for policy audiences.</div>
+    </div>
+    <div class="offer-card">
+      <div class="offer-num">06 ——</div>
+      <div class="offer-card-title">Policy Briefs & Reports</div>
+      <div class="offer-card-desc">Translating complex quantitative findings into clear, structured policy briefs and analytical reports for stakeholder, advisory, and academic audiences.</div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA & CODE -->
+<section id="data">
+  <div class="data-intro">
+    <div>
+      <p class="about-label">// Data & Code</p>
+      <h2 class="section-title">Transparent,<br>Reproducible Research</h2>
+      <p class="data-text">I believe rigorous research should be replicable. Below are selected code workflows, datasets, and econometric scripts from my research projects. Full replication files are hosted on GitHub.</p>
+      <div class="data-highlight">
+        <p>→ Panel dataset construction (QGIS + Stata)<br>→ Econometric estimation scripts<br>→ VAR/VECM modelling workflows<br>→ Robustness check routines</p>
+      </div>
+    </div>
+    <div>
+      <p class="about-label" style="opacity:0">&nbsp;</p>
+      <p style="font-size:0.9rem; line-height:1.8; color:var(--slate); margin-top:0.5rem;">Sharing code and data workflows signals intellectual seriousness and makes collaboration easier. If you are a researcher, policymaker, or analyst interested in any of the methods or datasets used in my work, feel free to reach out or explore the repository directly.</p>
+    </div>
+  </div>
+  <div class="code-grid">
+    <div class="code-card">
+      <div class="code-card-header">
+        <div class="code-dot dot-red"></div>
+        <div class="code-dot dot-yellow"></div>
+        <div class="code-dot dot-green"></div>
+        <div class="code-filename">panel_did.do</div>
+      </div>
+      <div class="code-body">
+        <div class="code-title">DiD Panel Estimation</div>
+        <div class="code-desc">Difference-in-differences estimation with village-level panel data. Includes fixed effects, standard error clustering, and event-study plots.</div>
+        <div class="code-tag-row">
+          <span class="code-tag">Stata</span>
+          <span class="code-tag">DiD</span>
+          <span class="code-tag">Panel Data</span>
+        </div>
+      </div>
+    </div>
+    <div class="code-card">
+      <div class="code-card-header">
+        <div class="code-dot dot-red"></div>
+        <div class="code-dot dot-yellow"></div>
+        <div class="code-dot dot-green"></div>
+        <div class="code-filename">var_forecast.prg</div>
+      </div>
+      <div class="code-body">
+        <div class="code-title">VAR Forecasting Model</div>
+        <div class="code-desc">Applied VAR/SVAR model with impulse response functions, forecast error variance decomposition, and Theil's U evaluation metrics.</div>
+        <div class="code-tag-row">
+          <span class="code-tag">EViews</span>
+          <span class="code-tag">VAR/SVAR</span>
+          <span class="code-tag">Forecasting</span>
+        </div>
+      </div>
+    </div>
+    <div class="code-card">
+      <div class="code-card-header">
+        <div class="code-dot dot-red"></div>
+        <div class="code-dot dot-yellow"></div>
+        <div class="code-dot dot-green"></div>
+        <div class="code-filename">dataset_merge.R</div>
+      </div>
+      <div class="code-body">
+        <div class="code-title">Dataset Construction Workflow</div>
+        <div class="code-desc">Merging Economic Census, Population Census, and geospatial datasets at the village level. Includes data cleaning and validation routines.</div>
+        <div class="code-tag-row">
+          <span class="code-tag">R</span>
+          <span class="code-tag">QGIS</span>
+          <span class="code-tag">Census Data</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="github-cta">
+    <div class="code-card-header" style="padding:0; background:transparent; border-radius:0;">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="var(--ink)">
+        <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+      </svg>
+    </div>
+    <div class="github-cta-text">
+      <div class="github-cta-title">Full Replication Files on GitHub</div>
+      <div class="github-cta-sub">Browse all econometric scripts, dataset construction workflows, and model replication files.</div>
+    </div>
+    <a href="https://github.com/YOUR-USERNAME" target="_blank" class="github-btn">View on GitHub →</a>
+  </div>
+</section>
+
+<!-- WRITING -->
+<section id="writing">
+  <p class="about-label">// Writing & Publications</p>
+  <h2 class="section-title">Papers & Policy Work</h2>
+  <div class="writing-grid">
+    <div class="writing-card">
+      <div class="writing-type">Master's Thesis</div>
+      <div class="writing-title">Infrastructure Investments and Regional Economic Change: Evidence from the Narmada Basin</div>
+      <div class="writing-desc">Panel econometric analysis of employment and structural economic outcomes following large-scale water infrastructure investments in India.</div>
+    </div>
+    <div class="writing-card">
+      <div class="writing-type">Policy Research · CPPR</div>
+      <div class="writing-title">Electricity Market Reform and Energy Policy in Kerala</div>
+      <div class="writing-desc">Analysis of regulatory frameworks, market structures, and institutional dimensions of Kerala's energy transition under the Electricity Act (2003).</div>
+    </div>
+    <div class="writing-card">
+      <div class="writing-type">Applied Econometrics</div>
+      <div class="writing-title">Applied Econometric Analysis of Development Outcomes</div>
+      <div class="writing-desc">Methods and findings from econometric evaluation of development programmes, combining large census datasets with causal identification strategies.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div>
+    <p class="about-label">// Contact</p>
+    <h2 class="section-title">Get in Touch</h2>
+    <p class="contact-text">I am open to research collaborations, consulting engagements, and full-time roles in economic research, policy analysis, or data-driven advisory work. Based in Dubai, available globally.</p>
+    <div class="contact-links">
+      <a href="/cdn-cgi/l/email-protection#85f6e4fce0e1e4ede4e4c5e2e8e4ece9abe6eae8" class="contact-link">
+        <div class="contact-link-icon">✉</div>
+        <div class="contact-link-info">
+          <div class="contact-link-label">Email</div>
+          <div class="contact-link-value"><span class="__cf_email__" data-cfemail="6714061e0203060f060627000a060e0b4904080a">[email&#160;protected]</span></div>
+        </div>
+        <span style="color:var(--teal); font-size:1.1rem;">→</span>
+      </a>
+      <a href="tel:+971509545369" class="contact-link">
+        <div class="contact-link-icon">📱</div>
+        <div class="contact-link-info">
+          <div class="contact-link-label">Phone / WhatsApp</div>
+          <div class="contact-link-value">+971 509 545 369</div>
+        </div>
+        <span style="color:var(--teal); font-size:1.1rem;">→</span>
+      </a>
+      <a href="https://linkedin.com/in/YOUR-HANDLE" target="_blank" class="contact-link">
+        <div class="contact-link-icon">in</div>
+        <div class="contact-link-info">
+          <div class="contact-link-label">LinkedIn</div>
+          <div class="contact-link-value">linkedin.com/in/YOUR-HANDLE</div>
+        </div>
+        <span style="color:var(--teal); font-size:1.1rem;">→</span>
+      </a>
+      <a href="https://github.com/YOUR-USERNAME" target="_blank" class="contact-link">
+        <div class="contact-link-icon">⌥</div>
+        <div class="contact-link-info">
+          <div class="contact-link-label">GitHub</div>
+          <div class="contact-link-value">github.com/YOUR-USERNAME</div>
+        </div>
+        <span style="color:var(--teal); font-size:1.1rem;">→</span>
+      </a>
+    </div>
+  </div>
+  <div>
+    <p class="about-label" style="opacity:0">&nbsp;</p>
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; margin-bottom:2rem; margin-top:0.5rem;">Send a Message</h3>
+    <div class="contact-form">
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input type="text" class="form-input" placeholder="Full name"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" placeholder="your@email.com"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Subject</label>
+        <input type="text" class="form-input" placeholder="Research collaboration, consulting..."/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="Tell me about your project or enquiry..."></textarea>
+      </div>
+      <button class="form-submit" onclick="handleSubmit()">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Sayed Arshad Khan</div>
+  <div class="footer-text">Economist · Dubai · © 2025</div>
+  <a href="CV_Sayed_Arshad_Khan.pdf" download class="btn-primary" style="font-size:0.8rem; padding:0.6rem 1.4rem;">Download CV</a>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Photo upload
+  function loadPhoto(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = document.getElementById('hero-img');
+      const placeholder = document.getElementById('photo-placeholder');
+      img.src = e.target.result;
+      img.style.display = 'block';
+      placeholder.style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Mobile menu
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    if (links.style.display === 'flex') {
+      links.style.display = 'none';
+    } else {
+      links.style.display = 'flex';
+      links.style.flexDirection = 'column';
+      links.style.position = 'absolute';
+      links.style.top = '64px';
+      links.style.left = '0';
+      links.style.right = '0';
+      links.style.background = 'var(--paper)';
+      links.style.padding = '1.5rem 8%';
+      links.style.gap = '1.2rem';
+      links.style.borderBottom = '1px solid var(--border)';
+    }
+  }
+
+  // Form submit
+  function handleSubmit() {
+    alert('Thanks for reaching out! This form will work once you connect it to Formspree or EmailJS.');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.research-card, .skill-block, .offer-card, .timeline-item, .writing-card, .
